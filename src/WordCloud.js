@@ -10,7 +10,6 @@ import {
 
 const fill = d3.scaleOrdinal(d3.schemeCategory10);
 
-
 class WordCloud extends Component {
   static propTypes = {
     data: PropTypes.arrayOf(PropTypes.shape({
@@ -33,7 +32,8 @@ class WordCloud extends Component {
       PropTypes.func,
     ]),
     color: PropTypes.string,
-    colors: PropTypes.arrayOf(PropTypes.string)
+    colors: PropTypes.arrayOf(PropTypes.string),
+    className: PropTypes.string
   }
 
   static defaultProps = {
@@ -44,7 +44,8 @@ class WordCloud extends Component {
     fontSizeMapper: defaultFontSizeMapper,
     rotate: 0,
     color: undefined,
-    colors: []
+    colors: [],
+    className: ''
   }
 
   componentWillMount() {
@@ -53,7 +54,7 @@ class WordCloud extends Component {
 
   render() {
     const { data, width, height, padding, font, fontSizeMapper, rotate,
-      colors, color } = this.props;
+      colors, color, className } = this.props;
     const wordCounts = data.map(
       text => ({ ...text })
     );
@@ -78,6 +79,7 @@ class WordCloud extends Component {
           .append('svg')
           .attr('width', layout.size()[0])
           .attr('height', layout.size()[1])
+          .attr('class', className)
           .append('g')
           .attr('transform', `translate(${layout.size()[0] / 2},${layout.size()[1] / 2})`)
           .selectAll('text')
