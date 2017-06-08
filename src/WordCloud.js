@@ -33,7 +33,9 @@ class WordCloud extends Component {
     ]),
     color: PropTypes.string,
     colors: PropTypes.arrayOf(PropTypes.string),
-    className: PropTypes.string
+    className: PropTypes.string,
+    maxSize: PropType.number,
+    minSize: PropType.number
   }
 
   static defaultProps = {
@@ -45,7 +47,9 @@ class WordCloud extends Component {
     rotate: 0,
     color: undefined,
     colors: [],
-    className: ''
+    className: '',
+    maxSize: Infinity,
+    minSize: -Infinity
   }
 
   componentWillMount() {
@@ -54,7 +58,7 @@ class WordCloud extends Component {
 
   render() {
     const { data, width, height, padding, font, fontSizeMapper, rotate,
-      colors, color, className } = this.props;
+      colors, color, className, minSize, maxSize } = this.props;
     const wordCounts = data.map(
       text => ({ ...text })
     );
@@ -86,7 +90,7 @@ class WordCloud extends Component {
           .data(words)
           .enter()
           .append('text')
-          .style('font-size', d => `${d.size}px`)
+          .style('font-size', d => `${Math.min(Math.max(d.size, minSize), maxSize)}px`)
           .style('font-family', font)
           .style('fill', fillColor)
           .attr('text-anchor', 'middle')
