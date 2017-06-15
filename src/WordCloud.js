@@ -85,7 +85,7 @@ class WordCloud extends Component {
           .attr('height', layout.size()[1])
           .attr('class', className)
           .append('g')
-          .filter(d => d.size < minSize)
+          .filter(d => d.size > minSize)
           .attr('transform', `translate(${layout.size()[0] / 2},${layout.size()[1] / 2})`)
           .selectAll('text')
           .data(words)
