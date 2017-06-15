@@ -91,7 +91,7 @@ class WordCloud extends Component {
           .data(words)
           .enter()
           .append('text')
-          .style('font-size', d => `${Math.min(Math.max(d.size, minSize), maxSize)}px`)
+          .style('font-size', d => `${Math.min(d.size, maxSize)}px`)
           .style('font-family', font)
           .style('fill', fillColor)
           .attr('text-anchor', 'middle')
